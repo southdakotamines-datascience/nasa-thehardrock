@@ -5,13 +5,11 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-
     <div class="wrapper">
       <HelloWorld msg="Meteor Madness" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/simulator">Simulator</RouterLink>
       </nav>
     </div>
   </header>
