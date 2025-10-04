@@ -84,7 +84,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// Assumptions for ranges; change as needed
+// Assumptions for ranges of sliders; change as needed
 const diameterMin = 0.1
 const diameterMax = 1000
 const diameterStep = 0.1
@@ -107,7 +107,7 @@ const formatMass = computed(() => {
   return mass.value
 })
 
-function handleSubmit() {
+async function handleSubmit() {
   // Basic validation
   if (diameter.value <= 0 || velocity.value < 0 || mass.value <= 0) {
     alert('Please enter positive values for diameter, velocity and mass.')
@@ -120,9 +120,29 @@ function handleSubmit() {
     mass: mass.value,
   }
 
-  // For now, just log the values. You can replace this with an API call or emit an event.
-  console.log('Simulator input submitted:', payload)
-  alert('Submitted: ' + JSON.stringify(payload))
+  try {
+    const response = await fetch('http://localhost:5000/simulate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+
+    if (!response.ok) {
+      throw new Error(`Server responded with ${response.status}`)
+    }
+
+    const data = await response.json()
+    console.log('Received from backend:', data)
+
+    // Example: show a message or update a reactive variable
+    alert(`Simulation result: ${data.result}`)
+
+  } catch (error) {
+    console.error('Error submitting data:', error)
+    alert('Something went wrong while contacting the server.')
+  }
 }
 </script>
 
