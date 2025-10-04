@@ -9,3 +9,9 @@
 
 `.venv\Scripts\activate`
 `pip install Flask`
+
+## Vue
+
+`cd frontend`
+`npm i`
+`npm run dev`
