@@ -10,6 +10,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/Simulator">Simulator</RouterLink>
       </nav>
     </div>
   </header>
