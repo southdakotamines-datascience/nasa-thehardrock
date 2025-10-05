@@ -32,8 +32,8 @@ onMounted(() => {
   const controls = new OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
   controls.enablePan = false
-  controls.minDistance = 2
-  controls.maxDistance = 6
+  controls.minDistance = 3
+  controls.maxDistance = 3
 
   // Earth geometry
   const earthGeometry = new THREE.SphereGeometry(1, 64, 64)
