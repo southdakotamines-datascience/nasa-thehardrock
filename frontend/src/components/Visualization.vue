@@ -2,8 +2,12 @@
   <div class="viz">
 
     <div class="results-text" v-if="result">
-      <p><strong>Estimated Houses Destroyed:</strong> {{ result.housesDamaged.toLocaleString() }}</p>
-      <p><strong>Estimated Death Toll:</strong> {{ result.deaths.toLocaleString() }}</p>
+      <p><strong>Estimated Houses Damaged:</strong> {{ result.housesDamaged.toLocaleString() }}</p>
+      <p><strong>Estimated House Destroyed:</strong> {{ result.housesDestroyed.toLocaleString() }}</p>
+      <p><strong>Estimated Injuries:</strong> {{ result.injuries.toLocaleString() }}</p>
+      <p><strong>Estimated Missing Persons:</strong> {{ result.missing.toLocaleString() }}</p>
+      <p><strong>Estimated Deaths:</strong> {{ result.deaths.toLocaleString() }}</p>
+      <p><strong>Estimated Damage (Millions of Dollars):</strong> {{ result.damageMillionsDollars.toLocaleString() }}</p>
     </div>
 
     <div id="impact-map" class="impact-map"></div>
@@ -13,7 +17,7 @@
 
 
 <script setup>
-import { onMounted, watch } from 'vue'
+import { onMounted, watch, nextTick } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -27,16 +31,18 @@ const props = defineProps({
 
 let map
 
-onMounted(() => {
-  // Initialize map once
-  map = L.map('impact-map').setView([0, 0], 3) // Default center, can adjust
+onMounted(async () => {
+    await nextTick()
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Initialize map once
+    map = L.map('impact-map').setView([0, 0], 3) // Default center, can adjust
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '© OpenStreetMap contributors'
-  }).addTo(map)
+    }).addTo(map)
 
-  drawCircles(props.result)
+    drawCircles(props.result)
 })
 
 // Re-draw circles when new result comes in
