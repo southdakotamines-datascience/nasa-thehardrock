@@ -10,25 +10,6 @@
       </Dialog>
 
       <form class="sim-form" @submit.prevent="handleSubmit">
-        <div class="form-row">
-          <label for="diameter">Diameter (m)</label>
-            <InputText
-                id="diameter"
-                type="number"
-                v-model.number="diameter"
-                :min="diameterMin"
-                :max="diameterMax"
-                :step="diameterStep"
-            />  
-          <Slider
-                v-model="diameter"
-                :min="diameterMin"
-                :max="diameterMax"
-                :step="diameterStep"
-                style="width: 100%;"
-                aria-label="Diameter slider"
-            />
-        </div>
 
         <div class="form-row">
           <label for="velocity">Velocity (m)</label>
@@ -94,10 +75,6 @@ import Visualization from '../components/Visualization.vue'
 const simulationResult = ref(null)
 
 // Assumptions for ranges of sliders; change as needed
-const diameterMin = 0.1
-const diameterMax = 1000
-const diameterStep = 0.1
-
 const velocityMin = 0
 const velocityMax = 72
 const velocityStep = 0.1
@@ -106,7 +83,6 @@ const massMin = 0.01
 const massMax = 1e9
 const massStep = 0.01
 
-const diameter = ref(10)
 const velocity = ref(20)
 const mass = ref(1000)
 const lat = ref(0)
@@ -127,13 +103,12 @@ function updateLongitude(newLong) {
 
 async function handleSubmit() {
   // Basic validation
-  if (diameter.value <= 0 || velocity.value < 0 || mass.value <= 0) {
-    alert('Please enter positive values for diameter, velocity and mass.')
+  if (velocity.value < 0 || mass.value <= 0) {
+    alert('Please enter positive values for velocity and mass.')
     return
   }
 
   const payload = {
-    diameter: diameter.value,
     velocity: velocity.value,
     mass: mass.value,
     longitude: long.value,
