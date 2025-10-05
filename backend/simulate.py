@@ -15,8 +15,10 @@ def simulate():
     diameter = data.get('diameter')
     velocity = data.get('velocity')
     mass = data.get('mass')
+    longitude = data.get('longitude')
+    latitude = data.get('latitude')
 
-    print(f"Received: diameter={diameter}, velocity={velocity}, mass={mass}")
+    print(f"Received: diameter={diameter}, velocity={velocity}, mass={mass}, longitude={longitude}, latitude={latitude},")
 
     # Example "processing" — replace with your real logic
 
@@ -38,7 +40,7 @@ def simulate():
 
 
 # Function for finding earthquakes similar to submitted asteroid
-def run_model(diameter, velocity, mass):
+def run_model(diameter, velocity, mass, longitude, latitude):
     # input data to model
     # get earthquake destruction
     # return results to simulate()
