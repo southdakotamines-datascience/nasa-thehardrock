@@ -4,12 +4,8 @@
       <h1>Simulator</h1>
 
       <!-- Visualization Dialog: only shows when both showModal & simulationResult are set -->
-      <Dialog
-        v-model:visible="showModal"
-        modal
-        header="Impact Visualization"
-        :style="{ width: '700px', maxWidth: '90vw' }"
-      >
+      <Dialog v-model:visible="showModal" modal header="Impact Visualization"
+        :style="{ width: '700px', maxWidth: '90vw' }">
         <Visualization v-if="simulationResult" :result="simulationResult" />
       </Dialog>
 
@@ -56,9 +52,10 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import SelectMap from '../components/SelectMap.vue'
 import Dialog from 'primevue/dialog'
 
-// Visualization. 
+// Visualization.
 const showModal = ref(false)
 import Visualization from '../components/Visualization.vue'
 const simulationResult = ref(null)
@@ -79,12 +76,21 @@ const massStep = 1
 const diameter = ref(10)
 const velocity = ref(20)
 const mass = ref(1000)
+const lat = ref(0)
+const long = ref(0)
 
 // const formatMass = computed(() => {
 //   if (mass.value >= 1e6) return (mass.value / 1e6).toFixed(2) + // 'M'
 //   if (mass.value >= 1e3) return (mass.value / 1e3).toFixed(2) + // 'k'
 //   return mass.value
 // })
+function updateLatitude(newLat) {
+  lat.value = newLat
+}
+
+function updateLongitude(newLong) {
+  long.value = newLong
+}
 
 async function handleSubmit() {
   // Basic validation
@@ -111,7 +117,6 @@ async function handleSubmit() {
       body: JSON.stringify(payload),
     })
 
-    // debugger
     if (!response.ok) {
       throw new Error(`Server responded with ${response.status}`)
     }
@@ -122,8 +127,7 @@ async function handleSubmit() {
 
     // Store the result, triggering visualization update
     simulationResult.value = data
-    showModal.value = true   // Open modal after receiving data
-
+    showModal.value = true // Open modal after receiving data
   } catch (error) {
     console.error('Error submitting data:', error)
     alert('Something went wrong while contacting the server.')

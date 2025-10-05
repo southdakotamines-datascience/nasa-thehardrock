@@ -26,7 +26,6 @@ onMounted(() => {
 
   let marker = null
   map.on('click', function (e) {
-    debugger
     const { lat, lng } = e.latlng
     if (marker) {
       map.removeLayer(marker)
