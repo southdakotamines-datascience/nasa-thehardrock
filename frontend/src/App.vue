@@ -6,7 +6,7 @@ import NavMenu from './components/NavMenu.vue'
 <template>
   <header>
     <div class="wrapper">
-      <NavMenu msg="Meteor Madness by The Hard Rock" />
+      <NavMenu msg="Meteorite Madness by The Hard Rock" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
