@@ -81,9 +81,9 @@ const velocityMax = 72 // practical upper bound for entry velocity due to gravit
 const velocityStep = 1
 
 // kg
-const massMin = 0.01
+const massMin = 0.001
 const massMax = 100000
-const massStep = 0.01
+const massStep = 0.001
 
 const velocity = ref(20)
 const mass = ref(100)
