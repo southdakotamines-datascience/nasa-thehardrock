@@ -2,7 +2,7 @@
   <div class="viz">
 
     <div class="results-text" v-if="result">
-      <p><strong>Estimated Houses Destroyed:</strong> {{ result.houses_destroyed.toLocaleString() }}</p>
+      <p><strong>Estimated Houses Destroyed:</strong> {{ result.housesDamaged.toLocaleString() }}</p>
       <p><strong>Estimated Death Toll:</strong> {{ result.deaths.toLocaleString() }}</p>
     </div>
 

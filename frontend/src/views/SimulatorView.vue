@@ -3,12 +3,15 @@
     <div class="wrapper">
       <h1>Simulator</h1>
 
-      <Visualization :result="simulationResult" />
       <!-- Visualization Modal -->
-      <div v-if="showModal" class="modal-overlay" @click.self="showModal = false">
+      <div
+        v-if="showModal && simulationResult"
+        class="modal-overlay"
+        @click.self="showModal = false"
+      >
         <div class="modal-content">
           <button class="modal-close" @click="showModal = false">×</button>
-          <ImpactVisualization :result="simulationResult" />
+          <Visualization :result="simulationResult" />
         </div>
       </div>
 
@@ -94,6 +97,7 @@
 import { ref, computed } from 'vue'
 
 // Visualization. 
+const showModal = ref(false)
 import Visualization from '../components/Visualization.vue'
 const simulationResult = ref(null)
 
@@ -144,6 +148,7 @@ async function handleSubmit() {
       body: JSON.stringify(payload)
     })
 
+    debugger
     if (!response.ok) {
       throw new Error(`Server responded with ${response.status}`)
     }
