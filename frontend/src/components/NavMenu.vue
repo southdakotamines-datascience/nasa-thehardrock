@@ -10,9 +10,7 @@ defineProps({
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
-    <h3>
-        A meteor impact simulation tool.
-    </h3>
+    <h3>A meteor impact simulation tool.</h3>
   </div>
 </template>
 
@@ -34,6 +32,7 @@ h3 {
 }
 
 @media (min-width: 1024px) {
+
   .greetings h1,
   .greetings h3 {
     text-align: left;

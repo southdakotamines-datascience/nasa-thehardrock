@@ -1,12 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import NavMenu from './components/NavMenu.vue'
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <HelloWorld msg="Meteor Madness" />
+      <NavMenu msg="Meteor Madness by The Hard Rock" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
