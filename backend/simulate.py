@@ -23,10 +23,10 @@ def simulate():
 
 
 # Function for finding earthquakes similar to submitted asteroid
-def search_earthquakes():
-    # load csv
-    # filtering logic
-    # return summary/results to simulate()
+def run_model():
+    # input data to model
+    # get earthquake destruction
+    # return results to simulate()
     return
 
 
