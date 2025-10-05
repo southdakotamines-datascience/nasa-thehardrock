@@ -75,16 +75,18 @@ import Visualization from '../components/Visualization.vue'
 const simulationResult = ref(null)
 
 // Assumptions for ranges of sliders; change as needed
+// km/s
 const velocityMin = 0
-const velocityMax = 72
-const velocityStep = 0.1
+const velocityMax = 72 // practical upper bound for entry velocity due to gravity and relative earth velocity or something
+const velocityStep = 1
 
+// kg
 const massMin = 0.01
-const massMax = 1e9
-const massStep = 0.01
+const massMax = 1000
+const massStep = 1
 
 const velocity = ref(20)
-const mass = ref(1000)
+const mass = ref(100)
 const lat = ref(0)
 const long = ref(0)
 
