@@ -1,6 +1,5 @@
 <template>
   <div class="viz">
-    <h2>Impact Visualization</h2>
 
     <div v-if="result">
       <!-- Example: replace with map/chart later -->
@@ -8,10 +7,6 @@
       <p><strong>Estimated casualties:</strong> {{ result.casualties }}</p>
 
       <!-- You could also plug in charts or Leaflet here -->
-    </div>
-
-    <div v-else>
-      <p>No data yet — run a simulation above.</p>
     </div>
   </div>
 </template>
