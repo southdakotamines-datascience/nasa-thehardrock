@@ -84,6 +84,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+// Visualization. 
+import Visualization from '../components/Visualization.vue'
+const simulationResult = ref(null)
+
+
 // Assumptions for ranges of sliders; change as needed
 const diameterMin = 0.1
 const diameterMax = 1000
@@ -138,8 +143,8 @@ async function handleSubmit() {
     const data = await response.json()
     console.log('Received from backend:', data)
 
-    // Example: show a message or update a reactive variable
-    alert(`Simulation result: ${data.result}`)
+    // Store the result, triggering visualization update
+    simulationResult.value = data
 
   } catch (error) {
     console.error('Error submitting data:', error)
