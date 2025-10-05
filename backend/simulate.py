@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-
+cors = CORS(app) # allow CORS for all routes. change this if you're going to deploy this!!
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Talk to handleSubmit in SimulatorView.vue
 @app.route('/simulate', methods=['POST'])
+@cross_origin()
 def simulate():
 
     # Get request from handleSubmit at localhost.../simulate
