@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 
+# For circles
+import math
+
 app = Flask(__name__)
 cors = CORS(app) # allow CORS for all routes. change this if you're going to deploy this!!
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -21,10 +24,13 @@ def simulate():
     print(f"Received: diameter={diameter}, velocity={velocity}, mass={mass}, longitude={longitude}, latitude={latitude},")
 
     # Calculate crater diamater.
-    # water_impact = is_in_water(lat, long)
-    # calc_impact_diameter(velocity, mass, water_impact)
+    is_water_impact = is_in_water(latitude, longitude)
+    crater_diameter = calc_impact_diameter(velocity, mass, is_water_impact)
 
-    # Calculate destruction from crater using population density
+    # Calculate destruction from crater using population density.
+    # Query population density data (in repo) using closest lat/long.
+    pop_density = get_population_density(latitude, longitude)
+    pop_enclosed = calc_total_population(pop_density, crater_diameter)
 
     # Run NN model to get secondary earthquake destruction effects.
 
@@ -44,7 +50,7 @@ def simulate():
 
 
 # Function for finding earthquakes similar to submitted asteroid
-def run_model(diameter, velocity, mass, longitude, latitude):
+def run_model():# model_params):
     # input data to model
     # get earthquake destruction
     # return results to simulate()
@@ -65,6 +71,24 @@ def calc_impact_diameter(velocity, mass, is_water_impact):
     crater_diameter = k * ((mass / target_density)**(1/3)) * ((velocity**2) / 9.81)
     
     return crater_diameter
+
+
+def get_population_density(lat, long):
+    # Load population density parquet into pandas
+    
+    # Filter population density parquet by closest lat and long
+
+    # Return population density
+    return
+
+
+# Rough estimate of population enclosed by the crater: assuming constant density for entire area
+# Uses density value at the impact center (input lat and long)
+def calc_total_population(pop_density, crater_diameter):
+    circular_area = math.pi * crater_diameter
+    population = round(pop_density * circular_area)
+
+    return population
 
 
 if __name__ == '__main__':
