@@ -22,5 +22,13 @@ def simulate():
     return jsonify({'result': energy})
 
 
+# Function for finding earthquakes similar to submitted asteroid
+def search_earthquakes():
+    # load csv
+    # filtering logic
+    # return summary/results to simulate()
+    return
+
+
 if __name__ == '__main__':
     app.run(debug=True)
