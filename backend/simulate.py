@@ -13,6 +13,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def simulate():
 
+    # Import NN model
+
     # Get request from handleSubmit at localhost.../simulate
     data = request.get_json()
     diameter = data.get('diameter')
