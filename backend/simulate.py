@@ -20,7 +20,14 @@ def simulate():
 
     print(f"Received: diameter={diameter}, velocity={velocity}, mass={mass}, longitude={longitude}, latitude={latitude},")
 
-    # Example "processing" — replace with your real logic
+    # Calculate crater diamater.
+    # water_impact = is_in_water(lat, long)
+    # calc_impact_diameter(velocity, mass, water_impact)
+
+    # Calculate destruction from crater using population density
+
+    # Run NN model to get secondary earthquake destruction effects.
+
     energy = 0.5 * mass * velocity**2
 
     # Send json response to handleSubmit
@@ -42,6 +49,22 @@ def run_model(diameter, velocity, mass, longitude, latitude):
     # get earthquake destruction
     # return results to simulate()
     return
+
+
+def is_in_water(lat, long):
+    return
+
+
+# Returns circles of damage with decreasing serverity form center of impact.
+# For the visualization dialog which draws the concentric circles.
+def calc_impact_diameter(velocity, mass, is_water_impact):
+    k = 1.8
+    surface_density = 2750
+    water_density = 1000
+    target_density = water_density if is_water_impact else surface_density
+    crater_diameter = k * ((mass / target_density)**(1/3)) * ((velocity**2) / 9.81)
+    
+    return crater_diameter
 
 
 if __name__ == '__main__':
