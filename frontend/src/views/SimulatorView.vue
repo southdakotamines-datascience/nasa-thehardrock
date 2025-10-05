@@ -3,6 +3,8 @@
     <div class="wrapper">
       <h1>Simulator</h1>
 
+      <Visualization :result="simulationResult" />
+
       <form class="sim-form" @submit.prevent="handleSubmit">
         <div class="form-row">
           <label for="diameter">Diameter (m)</label>
