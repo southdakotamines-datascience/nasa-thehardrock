@@ -76,14 +76,14 @@ const simulationResult = ref(null)
 
 // Assumptions for ranges of sliders; change as needed
 // km/s
-const velocityMin = 0
+const velocityMin = 11 // Lower limit dictated by earths escape velocity
 const velocityMax = 72 // practical upper bound for entry velocity due to gravity and relative earth velocity or something
 const velocityStep = 1
 
 // kg
 const massMin = 0.01
-const massMax = 10000
-const massStep = 1
+const massMax = 100000
+const massStep = 0.01
 
 const velocity = ref(20)
 const mass = ref(100)
