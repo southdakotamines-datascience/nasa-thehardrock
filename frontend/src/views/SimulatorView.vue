@@ -4,6 +4,13 @@
       <h1>Simulator</h1>
 
       <Visualization :result="simulationResult" />
+      <!-- Visualization Modal -->
+      <div v-if="showModal" class="modal-overlay" @click.self="showModal = false">
+        <div class="modal-content">
+          <button class="modal-close" @click="showModal = false">×</button>
+          <ImpactVisualization :result="simulationResult" />
+        </div>
+      </div>
 
       <form class="sim-form" @submit.prevent="handleSubmit">
         <div class="form-row">
@@ -147,6 +154,7 @@ async function handleSubmit() {
 
     // Store the result, triggering visualization update
     simulationResult.value = data
+    showModal.value = true   // Open modal after receiving data
 
   } catch (error) {
     console.error('Error submitting data:', error)
