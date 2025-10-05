@@ -19,11 +19,20 @@ def simulate():
     energy = 0.5 * mass * velocity**2
 
     # Send json response to handleSubmit
-    return jsonify({'result': energy})
+    return jsonify({'housesDamaged': energy,
+                    'damageAmountOrder': energy,
+                    'injuries': energy,
+                    'housesDestroyed': energy,
+                    'housesDamagedAmountOrder': energy,
+                    'deaths': energy,
+                    'damageMillionsDollars': energy,
+                    'missing': energy,
+                    'missingAmountOrder': energy,
+                    })
 
 
 # Function for finding earthquakes similar to submitted asteroid
-def run_model():
+def run_model(diameter, velocity, mass):
     # input data to model
     # get earthquake destruction
     # return results to simulate()
