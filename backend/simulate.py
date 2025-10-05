@@ -19,6 +19,9 @@ def simulate():
     print(f"Received: diameter={diameter}, velocity={velocity}, mass={mass}")
 
     # Example "processing" — replace with your real logic
+
+    # Run NN model.
+
     energy = 0.5 * mass * velocity**2
 
     # Send json response to handleSubmit
@@ -39,6 +42,12 @@ def run_model(diameter, velocity, mass):
     # input data to model
     # get earthquake destruction
     # return results to simulate()
+    return
+
+# Returns circles of damage with decreasing serverity form center of impact.
+# For the visualization dialog which draws the concentric circles.
+def calc_impact_radius(diameter, velocity, mass):
+    
     return
 
 
