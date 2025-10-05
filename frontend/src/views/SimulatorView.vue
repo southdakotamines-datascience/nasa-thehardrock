@@ -12,7 +12,7 @@
       <form class="sim-form" @submit.prevent="handleSubmit">
 
         <div class="form-row">
-          <label for="velocity">Velocity (m)</label>
+          <label for="velocity">Velocity (km/s)</label>
             <InputText
                 id="velocity"
                 type="number"
@@ -82,7 +82,7 @@ const velocityStep = 1
 
 // kg
 const massMin = 0.01
-const massMax = 1000
+const massMax = 10000
 const massStep = 1
 
 const velocity = ref(20)
