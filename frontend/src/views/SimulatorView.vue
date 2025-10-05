@@ -3,17 +3,15 @@
     <div class="wrapper">
       <h1>Simulator</h1>
 
-      <!-- Visualization Modal -->
-      <div
-        v-if="showModal && simulationResult"
-        class="modal-overlay"
-        @click.self="showModal = false"
+      <!-- Visualization Dialog: only shows when both showModal & simulationResult are set -->
+      <Dialog
+        v-model:visible="showModal"
+        modal
+        header="Impact Visualization"
+        :style="{ width: '700px', maxWidth: '90vw' }"
       >
-        <div class="modal-content">
-          <button class="modal-close" @click="showModal = false">×</button>
-          <Visualization :result="simulationResult" />
-        </div>
-      </div>
+        <Visualization v-if="simulationResult" :result="simulationResult" />
+      </Dialog>
 
       <form class="sim-form" @submit.prevent="handleSubmit">
         <div class="form-row">
@@ -95,6 +93,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import Dialog from 'primevue/dialog'
 
 // Visualization. 
 const showModal = ref(false)
@@ -148,7 +147,7 @@ async function handleSubmit() {
       body: JSON.stringify(payload)
     })
 
-    debugger
+    // debugger
     if (!response.ok) {
       throw new Error(`Server responded with ${response.status}`)
     }
