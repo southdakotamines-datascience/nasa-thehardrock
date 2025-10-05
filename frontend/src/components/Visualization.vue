@@ -20,8 +20,8 @@
 defineProps({
   result: {
     type: Object,
-    required: false
-  }
+    required: false,
+  },
 })
 </script>
 
