@@ -101,11 +101,11 @@ const diameter = ref(10)
 const velocity = ref(20)
 const mass = ref(1000)
 
-const formatMass = computed(() => {
-  if (mass.value >= 1e6) return (mass.value / 1e6).toFixed(2) + 'M'
-  if (mass.value >= 1e3) return (mass.value / 1e3).toFixed(2) + 'k'
-  return mass.value
-})
+// const formatMass = computed(() => {
+//   if (mass.value >= 1e6) return (mass.value / 1e6).toFixed(2) + // 'M'
+//   if (mass.value >= 1e3) return (mass.value / 1e3).toFixed(2) + // 'k'
+//   return mass.value
+// })
 
 async function handleSubmit() {
   // Basic validation
@@ -121,6 +121,7 @@ async function handleSubmit() {
   }
 
   try {
+    // Send payload to flask, listening at localhost.../simulate for processing.
     const response = await fetch('http://localhost:5000/simulate', {
       method: 'POST',
       headers: {
@@ -133,6 +134,7 @@ async function handleSubmit() {
       throw new Error(`Server responded with ${response.status}`)
     }
 
+    // Receive response from backened in simulate()
     const data = await response.json()
     console.log('Received from backend:', data)
 
