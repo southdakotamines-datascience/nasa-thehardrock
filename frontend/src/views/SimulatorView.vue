@@ -16,72 +16,35 @@
       <form class="sim-form" @submit.prevent="handleSubmit">
         <div class="form-row">
           <label for="diameter">Diameter (m)</label>
-          <input
-            id="diameter"
-            type="number"
-            v-model.number="diameter"
-            :min="diameterMin"
-            :max="diameterMax"
-            :step="diameterStep"
-            required
-          />
-          <input
-            class="slider"
-            type="range"
-            v-model.number="diameter"
-            :min="diameterMin"
-            :max="diameterMax"
-            :step="diameterStep"
-            aria-label="Diameter slider"
-          />
+          <input id="diameter" type="number" v-model.number="diameter" :min="diameterMin" :max="diameterMax"
+            :step="diameterStep" required />
+          <input class="slider" type="range" v-model.number="diameter" :min="diameterMin" :max="diameterMax"
+            :step="diameterStep" aria-label="Diameter slider" />
           <div class="value">{{ diameter }}</div>
         </div>
 
         <div class="form-row">
           <label for="velocity">Velocity (km/s)</label>
-          <input
-            id="velocity"
-            type="number"
-            v-model.number="velocity"
-            :min="velocityMin"
-            :max="velocityMax"
-            :step="velocityStep"
-            required
-          />
-          <input
-            class="slider"
-            type="range"
-            v-model.number="velocity"
-            :min="velocityMin"
-            :max="velocityMax"
-            :step="velocityStep"
-            aria-label="Velocity slider"
-          />
+          <input id="velocity" type="number" v-model.number="velocity" :min="velocityMin" :max="velocityMax"
+            :step="velocityStep" required />
+          <input class="slider" type="range" v-model.number="velocity" :min="velocityMin" :max="velocityMax"
+            :step="velocityStep" aria-label="Velocity slider" />
           <div class="value">{{ velocity }}</div>
         </div>
 
         <div class="form-row">
           <label for="mass">Mass (kg)</label>
-          <input
-            id="mass"
-            type="number"
-            v-model.number="mass"
-            :min="massMin"
-            :max="massMax"
-            :step="massStep"
-            required
-          />
-          <input
-            class="slider"
-            type="range"
-            v-model.number="mass"
-            :min="massMin"
-            :max="massMax"
-            :step="massStep"
-            aria-label="Mass slider"
-          />
+          <input id="mass" type="number" v-model.number="mass" :min="massMin" :max="massMax" :step="massStep"
+            required />
+          <input class="slider" type="range" v-model.number="mass" :min="massMin" :max="massMax" :step="massStep"
+            aria-label="Mass slider" />
           <div class="value">{{ formatMass }}</div>
         </div>
+
+        <SelectMap :latitude="lat" :longitude="long" @update:latitude="updateLatitude"
+          @update:longitude="updateLongitude" />
+        <div class="value">Latitude Selected: {{ lat }}</div>
+        <div class="value">Longitude Selected: {{ long }}</div>
 
         <div class="form-actions">
           <button type="submit" class="btn">Submit</button>
@@ -99,7 +62,6 @@ import Dialog from 'primevue/dialog'
 const showModal = ref(false)
 import Visualization from '../components/Visualization.vue'
 const simulationResult = ref(null)
-
 
 // Assumptions for ranges of sliders; change as needed
 const diameterMin = 0.1
@@ -135,6 +97,8 @@ async function handleSubmit() {
     diameter: diameter.value,
     velocity: velocity.value,
     mass: mass.value,
+    longitude: long.value,
+    latitude: lat.value,
   }
 
   try {
@@ -142,9 +106,9 @@ async function handleSubmit() {
     const response = await fetch('http://localhost:5000/simulate', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     })
 
     // debugger
@@ -223,6 +187,7 @@ async function handleSubmit() {
   .form-row {
     grid-template-columns: 1fr;
   }
+
   .value {
     text-align: left;
   }
