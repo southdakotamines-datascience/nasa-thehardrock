@@ -28,7 +28,6 @@
                 style="width: 100%;"
                 aria-label="Diameter slider"
             />
-            <div class="value">{{ diameter }}</div>
         </div>
 
         <div class="form-row">
@@ -49,7 +48,6 @@
                 style="width: 100%;"
                 aria-label="Velocity slider"
             />
-            <div class="value">{{ velocity }}</div>
         </div>
 
         <div class="form-row">
@@ -70,7 +68,6 @@
             style="width: 100%;"
             aria-label="Mass slider"
           />
-          <div class="value">{{ formatMass }}</div>
         </div>
 
         <SelectMap :latitude="lat" :longitude="long" @update:latitude="updateLatitude"
@@ -200,8 +197,30 @@ async function handleSubmit() {
   border: 1px solid var(--color-border, #ddd);
 }
 
-.slider {
-  width: 100%;
+::v-deep(.p-slider .p-slider-track) {
+  background-color: #ddd;  /* empty track */
+}
+
+::v-deep(.p-slider .p-slider-range) {
+  background-color: #ff5722; /* filled track */
+}
+
+::v-deep(.p-slider .p-slider-handle) {
+  background-color: #ff5722; /* thumb */
+  border-color: #ff5722;
+}
+
+/* Hover state */
+::v-deep(.p-slider .p-slider-handle:hover) {
+  background-color: #e64a19;  /* darker orange on hover */
+  border-color: #e64a19;
+}
+
+/* Focus / active state (ring around the thumb) */
+::v-deep(.p-slider .p-slider-handle:focus),
+::v-deep(.p-slider .p-slider-handle:focus-visible) {
+  border-color: #ff5722 !important;       /* replaces green border */
+  box-shadow: 0 0 0 0.25rem rgba(255,87,34,0.5) !important; /* orange ring */
 }
 
 .value {
