@@ -12,7 +12,7 @@
       <form class="sim-form" @submit.prevent="handleSubmit">
 
         <div class="form-row">
-          <label for="velocity">Velocity (m)</label>
+          <label for="velocity">Velocity (km/s)</label>
             <InputText
                 id="velocity"
                 type="number"
@@ -75,16 +75,18 @@ import Visualization from '../components/Visualization.vue'
 const simulationResult = ref(null)
 
 // Assumptions for ranges of sliders; change as needed
-const velocityMin = 0
-const velocityMax = 72
-const velocityStep = 0.1
+// km/s
+const velocityMin = 11 // Lower limit dictated by earths escape velocity
+const velocityMax = 72 // practical upper bound for entry velocity due to gravity and relative earth velocity or something
+const velocityStep = 1
 
-const massMin = 0.01
-const massMax = 1e9
-const massStep = 0.01
+// kg
+const massMin = 0.001
+const massMax = 100000
+const massStep = 0.001
 
 const velocity = ref(20)
-const mass = ref(1000)
+const mass = ref(100)
 const lat = ref(0)
 const long = ref(0)
 

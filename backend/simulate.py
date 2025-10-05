@@ -46,6 +46,9 @@ def simulate():
                     'damageMillionsDollars': energy,
                     'missing': energy,
                     'missingAmountOrder': energy,
+                    'total_destruction_radius_m': energy,
+                    'severe_damage_radius_m': energy,
+                    'moderate_damage_radius_m': energy
                     })
 
 
