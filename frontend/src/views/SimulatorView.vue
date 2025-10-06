@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import SelectMap from '../components/SelectMap.vue'
 import Dialog from 'primevue/dialog'
 
@@ -76,7 +76,7 @@ const showModal = ref(false)
 import Visualization from '../components/Visualization.vue'
 const simulationResult = ref(null)
 
-import Explosion from '@/components/Explosion.vue'
+import Explosion from '../components/Explosion.vue'
 const showExplosion = ref(false)
 
 // Assumptions for ranges of sliders; change as needed
