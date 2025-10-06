@@ -66,20 +66,26 @@ function drawCircles(result) {
 
   // Example radii in meters (these can come from your simulation backend)
   const radii = [
-    { radius: result.total_destruction_radius_m ?? 5000, color: 'red', label: 'Total destruction' },
-    { radius: result.severe_damage_radius_m ?? 15000, color: 'orange', label: 'Severe damage' },
-    { radius: result.moderate_damage_radius_m ?? 30000, color: 'yellow', label: 'Moderate damage' }
+    { radius: result.severe_damage_radius_m ?? 5000, color: 'red', label: 'Severe damage' },
+    { radius: result.moderate_damage_radius_m ?? 15000, color: 'orange', label: 'Moderate damage' },
+    { radius: result.total_destruction_radius_m ?? 30000, color: 'yellow', label: 'Total destruction' }
   ]
 
-  radii.forEach(r => {
-    L.circle([lat, lng], {
-      radius: r.radius,
-      color: r.color,
-      fillColor: r.color,
-      fillOpacity: 0.2,
-      weight: 2
-    }).addTo(map).bindTooltip(r.label, { permanent: false })
-  })
+    // Draw largest first, so smaller are on top and catch hover events
+    radii
+    .slice()            // copy the array so we don't mutate it
+    .reverse()          // largest first
+    .forEach(r => {
+        L.circle([lat, lng], {
+        radius: r.radius,
+        color: r.color,
+        fillColor: r.color,
+        fillOpacity: 0.2,
+        weight: 2
+        })
+        .addTo(map)
+        .bindTooltip(r.label, { permanent: false });
+    });
 }
 </script>
 
