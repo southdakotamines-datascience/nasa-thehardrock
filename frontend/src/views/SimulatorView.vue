@@ -11,6 +11,8 @@
 
       <form class="sim-form" @submit.prevent="handleSubmit">
 
+      <Explosion v-if="showExplosion" />
+
         <div class="form-row">
           <label for="velocity">Velocity (km/s)</label>
             <InputText
@@ -65,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import SelectMap from '../components/SelectMap.vue'
 import Dialog from 'primevue/dialog'
 
@@ -73,6 +75,9 @@ import Dialog from 'primevue/dialog'
 const showModal = ref(false)
 import Visualization from '../components/Visualization.vue'
 const simulationResult = ref(null)
+
+import Explosion from '../components/Explosion.vue'
+const showExplosion = ref(false)
 
 // Assumptions for ranges of sliders; change as needed
 // km/s
@@ -89,6 +94,13 @@ const velocity = ref(20)
 const mass = ref(100)
 const lat = ref(0)
 const long = ref(0)
+
+watch([velocity, mass], ([newVelocity, newMass]) => {
+  if (newVelocity === velocityMax && newMass == massMax) {
+    showExplosion.value = true
+    setTimeout(() => showExplosion.value = false, 5000)
+  }
+})
 
 // const formatMass = computed(() => {
 //   if (mass.value >= 1e6) return (mass.value / 1e6).toFixed(2) + // 'M'

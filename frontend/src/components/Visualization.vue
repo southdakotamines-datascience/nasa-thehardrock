@@ -35,7 +35,7 @@ onMounted(async () => {
     await nextTick()
 
     // Initialize map once
-    map = L.map('impact-map').setView([0, 0], 3) // Default center, can adjust
+    map = L.map('impact-map').setView([44.0805, -103.2310], 10) // Centered on Rapid City
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
@@ -59,27 +59,33 @@ function drawCircles(result) {
   })
 
   // Use the backend data or defaults for radius
-  const lat = result.lat ?? 0
-  const lng = result.lng ?? 0
+  const lat = result.latitude ?? 0
+  const lng = result.longitude ?? 0
 
   map.setView([lat, lng], 6)
 
   // Example radii in meters (these can come from your simulation backend)
   const radii = [
-    { radius: result.total_destruction_radius_m ?? 5000, color: 'red', label: 'Total destruction' },
-    { radius: result.severe_damage_radius_m ?? 15000, color: 'orange', label: 'Severe damage' },
-    { radius: result.moderate_damage_radius_m ?? 30000, color: 'yellow', label: 'Moderate damage' }
+    { radius: result.severe_damage_radius_m ?? 5000, color: 'red', label: 'Severe damage' },
+    { radius: result.moderate_damage_radius_m ?? 15000, color: 'orange', label: 'Moderate damage' },
+    { radius: result.total_destruction_radius_m ?? 30000, color: 'yellow', label: 'Total destruction' }
   ]
 
-  radii.forEach(r => {
-    L.circle([lat, lng], {
-      radius: r.radius,
-      color: r.color,
-      fillColor: r.color,
-      fillOpacity: 0.2,
-      weight: 2
-    }).addTo(map).bindTooltip(r.label, { permanent: false })
-  })
+    // Draw largest first, so smaller are on top and catch hover events
+    radii
+    .slice()            // copy the array so we don't mutate it
+    .reverse()          // largest first
+    .forEach(r => {
+        L.circle([lat, lng], {
+        radius: r.radius,
+        color: r.color,
+        fillColor: r.color,
+        fillOpacity: 0.2,
+        weight: 2
+        })
+        .addTo(map)
+        .bindTooltip(r.label, { permanent: false });
+    });
 }
 </script>
 

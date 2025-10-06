@@ -10,7 +10,7 @@ defineProps({
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
-    <h3>A meteor impact simulation tool.</h3>
+    <h3>A meteorite impact simulation tool.</h3>
   </div>
 </template>
 

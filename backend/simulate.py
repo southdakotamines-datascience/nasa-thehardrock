@@ -32,9 +32,11 @@ def simulate():
     # Calculate destruction from crater using population density.
     # Query population density data (in repo) using closest lat/long.
     pop_density = get_population_density(latitude, longitude)
-    pop_enclosed = calc_total_population(pop_density, crater_diameter)
+    # pop_enclosed = calc_total_population(pop_density, crater_diameter)
 
     # Run NN model to get secondary earthquake destruction effects.
+
+    # total_deaths = pop_enclosed + earthquake_deaths
 
     energy = 0.5 * mass * velocity**2
 
@@ -48,9 +50,11 @@ def simulate():
                     'damageMillionsDollars': energy,
                     'missing': energy,
                     'missingAmountOrder': energy,
+                    'latitude': latitude,
+                    'longitude': longitude,
                     'total_destruction_radius_m': energy,
-                    'severe_damage_radius_m': energy,
-                    'moderate_damage_radius_m': energy
+                    'severe_damage_radius_m': energy * 1/3,
+                    'moderate_damage_radius_m': energy * 2/3
                     })
 
 
