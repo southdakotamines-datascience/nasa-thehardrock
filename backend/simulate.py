@@ -64,9 +64,10 @@ def simulate():
                     'deaths': str(total_deaths),
                     'latitude': str(latitude),
                     'longitude': str(longitude),
-                    'total_destruction_radius_m': str(crater_radii),
-                    'severe_damage_radius_m': str(crater_radii * 4/3),
-                    'moderate_damage_radius_m': str(crater_radii * 5/3)
+                    'Mw': str(Mw),
+                    'total_destruction_radius_m': str(crater_radii * Mw * 4),
+                    'severe_damage_radius_m': str(crater_radii * Mw * 8),
+                    'moderate_damage_radius_m': str(crater_radii * Mw * 16)
                     })
 
 
@@ -131,7 +132,7 @@ def calc_earthquake_magnitude(velocity, mass):
     energy = 0.5 * mass * velocity**2
     M_E = (2/3) * math.log10(energy) - 3.2
     # Assume M_E (energy magnitude) is equivalent to moment magnitude
-    return M_E
+    return abs(M_E)
 
 if __name__ == '__main__':
     app.run(debug=True)
