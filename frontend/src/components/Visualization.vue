@@ -1,20 +1,14 @@
 <template>
   <div class="viz">
-
     <div class="results-text" v-if="result">
       <p><strong>Estimated Houses Damaged:</strong> {{ result.housesDamaged.toLocaleString() }}</p>
-      <p><strong>Estimated House Destroyed:</strong> {{ result.housesDestroyed.toLocaleString() }}</p>
       <p><strong>Estimated Injuries:</strong> {{ result.injuries.toLocaleString() }}</p>
-      <p><strong>Estimated Missing Persons:</strong> {{ result.missing.toLocaleString() }}</p>
       <p><strong>Estimated Deaths:</strong> {{ result.deaths.toLocaleString() }}</p>
-      <p><strong>Estimated Damage (Millions of Dollars):</strong> {{ result.damageMillionsDollars.toLocaleString() }}</p>
     </div>
 
     <div id="impact-map" class="impact-map"></div>
-
   </div>
 </template>
-
 
 <script setup>
 import { onMounted, watch, nextTick } from 'vue'
@@ -25,36 +19,39 @@ import 'leaflet/dist/leaflet.css'
 const props = defineProps({
   result: {
     type: Object,
-    required: true
-  }
+    required: true,
+  },
 })
 
 let map
 
 onMounted(async () => {
-    await nextTick()
+  await nextTick()
 
-    // Initialize map once
-    map = L.map('impact-map').setView([44.0805, -103.2310], 10) // Centered on Rapid City
+  // Initialize map once
+  map = L.map('impact-map').setView([44.0805, -103.231], 10) // Centered on Rapid City
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
-    attribution: '© OpenStreetMap contributors'
-    }).addTo(map)
+    attribution: '© OpenStreetMap contributors',
+  }).addTo(map)
 
-    drawCircles(props.result)
+  drawCircles(props.result)
 })
 
 // Re-draw circles when new result comes in
-watch(() => props.result, (newResult) => {
-  if (map && newResult) {
-    drawCircles(newResult)
-  }
-})
+watch(
+  () => props.result,
+  (newResult) => {
+    if (map && newResult) {
+      drawCircles(newResult)
+    }
+  },
+)
 
 function drawCircles(result) {
   // Clear any old layers except the base tile layer
-  map.eachLayer(layer => {
+  map.eachLayer((layer) => {
     if (!(layer instanceof L.TileLayer)) map.removeLayer(layer)
   })
 
@@ -68,24 +65,28 @@ function drawCircles(result) {
   const radii = [
     { radius: result.severe_damage_radius_m ?? 5000, color: 'red', label: 'Severe damage' },
     { radius: result.moderate_damage_radius_m ?? 15000, color: 'orange', label: 'Moderate damage' },
-    { radius: result.total_destruction_radius_m ?? 30000, color: 'yellow', label: 'Total destruction' }
+    {
+      radius: result.total_destruction_radius_m ?? 30000,
+      color: 'yellow',
+      label: 'Total destruction',
+    },
   ]
 
-    // Draw largest first, so smaller are on top and catch hover events
-    radii
-    .slice()            // copy the array so we don't mutate it
-    .reverse()          // largest first
-    .forEach(r => {
-        L.circle([lat, lng], {
+  // Draw largest first, so smaller are on top and catch hover events
+  radii
+    .slice() // copy the array so we don't mutate it
+    .reverse() // largest first
+    .forEach((r) => {
+      L.circle([lat, lng], {
         radius: r.radius,
         color: r.color,
         fillColor: r.color,
         fillOpacity: 0.2,
-        weight: 2
-        })
+        weight: 2,
+      })
         .addTo(map)
-        .bindTooltip(r.label, { permanent: false });
-    });
+        .bindTooltip(r.label, { permanent: false })
+    })
 }
 </script>
 
